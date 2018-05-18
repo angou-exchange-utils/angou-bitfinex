@@ -1,5 +1,6 @@
 import json
 import base64
+import logging
 import requests
 import auth_utils
 
@@ -22,6 +23,7 @@ class RestV1Client:
     def __init__(self, api_key, api_secret):
         self.api_key = api_key
         self.api_secret = api_secret
+        self.logger = logging.getLogger('angou_bitfinex')
 
     @staticmethod
     def _postprocess(req):
@@ -33,9 +35,12 @@ class RestV1Client:
             return req.json()
 
     def call_public(self, method, **kwargs):
+        self.logger.debug('%s %s', method, kwargs)
         return self._postprocess(requests.get(f'{_BASE_URL}/v1/{method}', params=kwargs))
 
     def call_auth(self, method, **kwargs):
+        self.logger.debug('%s %s', method, kwargs)
+
         nonce = auth_utils.generate_nonce()
         path = f'/v1/{method}'
 
@@ -61,6 +66,7 @@ class RestV2Client:
     def __init__(self, api_key, api_secret):
         self.api_key = api_key
         self.api_secret = api_secret
+        self.logger = logging.getLogger('angou_bitfinex')
 
     @staticmethod
     def _postprocess(req):
@@ -73,9 +79,12 @@ class RestV2Client:
             return req.json()
 
     def call_public(self, method, **kwargs):
+        self.logger.debug('%s %s', method, kwargs)
         return self._postprocess(requests.get(f'{_BASE_URL}/v2/{method}', params=kwargs))
 
     def call_auth(self, method, **kwargs):
+        self.logger.debug('%s %s', method, kwargs)
+
         nonce = auth_utils.generate_nonce()
         path = f'/v2/{method}'
         post_data_json = json.dumps(kwargs)
