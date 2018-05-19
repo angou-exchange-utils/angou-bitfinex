@@ -2,7 +2,7 @@ from urllib.parse import urlparse
 import base64
 import logging
 import requests
-import auth_utils
+from . import auth_utils
 
 
 _BASE_URL = 'https://api.bitfinex.com'
