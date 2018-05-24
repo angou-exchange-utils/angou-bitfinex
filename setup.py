@@ -1,7 +1,7 @@
 from setuptools import setup
 
 
-VERSION = '1'
+VERSION = '2'
 
 
 setup(name='angou_bitfinex',
