@@ -5,7 +5,7 @@ import requests
 from . import auth_utils
 
 
-LOGGER = logging.getLogger('angou_bitfinex')
+LOGGER = logging.getLogger(__name__)
 
 
 _BASE_URL = 'https://api.bitfinex.com'
